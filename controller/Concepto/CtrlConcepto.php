@@ -39,11 +39,12 @@ class CtrlConcepto extends ConceptoDAO
     {
         
         $id = $_POST['idConcepto'];
-        $name = $_POST['nameConcepto'];
-        $descripcion = $_POST['descripcionConcepto']; 
-        $tipo = $_POST['tipoConcepto']; 
-        $estado = $_POST['estadoConcepto'];
+$name = $_POST['nameConcepto'];
+$descripcion = $_POST['descripcionConcepto']; 
+$tipo = $_POST['tipoConcepto']; 
+$estado = $_POST['estadoConcepto'];
 
+$rs = ConceptoDAO::getInstance()->add($id, $name, $descripcion, $tipo, $estado);
         
         $rs = ConceptoDAO::getInstance()->add($id, $name, $descripcion, $tipo, $estado);
 
@@ -65,10 +66,11 @@ class CtrlConcepto extends ConceptoDAO
 
         foreach ($rs as $key => $rowConcepto) {
 
-            $array['id'] = $rowConcepto['con_id'];
-            $array['nombre'] = $rowConcepto['con_nombre']; 
-            $array['tipo'] = $rowConcepto['con_tipo']; 
-            $array['estado'] = $rowConcepto['con_estado'];
+          $array['id'] = $rowConcepto['con_id'];
+$array['nombre'] = $rowConcepto['con_nombre']; 
+$array['tipo'] = $rowConcepto['con_tipo']; 
+$array['estado'] = $rowConcepto['con_estado'];
+
         }
         echo json_encode($array);
     }
