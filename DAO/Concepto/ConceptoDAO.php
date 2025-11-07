@@ -17,14 +17,13 @@ class ConceptoDAO extends connection
         return $result;
     }
     
-    public function add($id,$descripcion, $tipo, $estado)
-    {
-        $rs = "";
-        try {
-           
-            $sql = "INSERT INTO concepto (con_id, con_descripcion, con_estado) 
-                    VALUES ('" . $id . "','" . $descripcion . "','" . $estado . "')";
-            
+public function add($id,$descripcion, $tipo, $estado)
+{
+    $rs = "";
+    try {
+        $sql = "INSERT INTO concepto (con_id, con_descripcion, con_estado) 
+                VALUES ('" . $id . "','" . $descripcion . "','" . $estado . "')";
+
             $result = $this->execute($sql);
             $rs = 1;
         } catch (PDOException $exc) {
@@ -37,7 +36,8 @@ class ConceptoDAO extends connection
     public function findById($id){
         try{
             
-            $sql = "SELECT * FROM concepto WHERE conc_id = '".$id."'";
+            $sql = "SELECT * FROM concepto WHERE con_id = '$id'";
+
             $result = $this->execute($sql);
             return $result;
         }catch(PDOException $exc){
