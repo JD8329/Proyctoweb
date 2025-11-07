@@ -42,7 +42,23 @@ class ConceptoDAO extends connection
             return $result;
         } catch (PDOException $exc) {
             die('Error findById() ConceptoDAO:<br/>' . $exc->getMessage());
-            $rs = 0;
+            return 0;
+        }
+    }
+
+    // método agregado para actualizar un concepto
+    public function update($id, $descripcion, $estado)
+    {
+        try {
+            $sql = "UPDATE concepto 
+                    SET con_descripcion = '" . $descripcion . "', 
+                        con_estado = '" . $estado . "'
+                    WHERE con_id = '" . $id . "'";
+            $this->execute($sql);
+            return 1;
+        } catch (PDOException $exc) {
+            die('Error update() ConceptoDAO:<br/>' . $exc->getMessage());
+            return 0;
         }
     }
 }
