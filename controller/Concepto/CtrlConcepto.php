@@ -35,41 +35,45 @@ class CtrlConcepto extends ConceptoDAO
         }
         echo json_encode($array);
     }
-    public function postNew()
-    {
-        
-        $id = $_POST['idConcepto'];
-        $name = $_POST['nameConcepto'];
-        $descripcion = $_POST['descripcionConcepto']; 
-        $tipo = $_POST['tipoConcepto']; 
-        $estado = $_POST['estadoConcepto'];
+ public function postNew()
+{
+    // Capturamos los datos enviados desde el formulario
+    $id = $_POST['idConcepto'] ?? null;
+    $descripcion = $_POST['descripcionConcepto'] ?? null;
+    $estado = $_POST['estadoConcepto'] ?? null;
 
-        
-        $rs = ConceptoDAO::getInstance()->add($id, $name, $descripcion, $tipo, $estado);
-
-        if ($rs == 1) {
-            
-            messageSweetAlert("¡Éxito!", "Concepto creado correctamente.", "success", "#4CAF50", getUrl('Concepto', 'Concepto', 'read'));
-        } else {
-            
-            messageSweetAlert("Advertencia!", "No fue posible crear el concepto", "warning", "#f7060d", getUrl('Concepto', 'Concepto', 'read'));
-        }
+    // Validamos que los datos existan
+    if (empty($id) || empty($descripcion) || empty($estado)) {
+        messageSweetAlert("Error", "Faltan datos para registrar el concepto.", "error", "#f7060d", getUrl('Concepto', 'Concepto', 'read'));
+        return;
     }
-    public function getData()
-    {
-        
-        $id = $_GET['con_id'];
-        $array = [];
-        
-        $rs = ConceptoDAO::getInstance()->findById($id);
 
-        foreach ($rs as $key => $rowConcepto) {
+    // Insertamos el registro usando el método heredado del DAO
+    $rs = $this->add($id, $descripcion, $estado);
 
-            $array['id'] = $rowConcepto['con_id'];
-            $array['nombre'] = $rowConcepto['con_nombre']; 
-            $array['tipo'] = $rowConcepto['con_tipo']; 
-            $array['estado'] = $rowConcepto['con_estado'];
-        }
-        echo json_encode($array);
+    // Mostramos mensaje según el resultado
+    if ($rs == 1) {
+        messageSweetAlert("¡Éxito!", "Concepto creado correctamente.", "success", "#4CAF50", getUrl('Concepto', 'Concepto', 'read'));
+    } else {
+        messageSweetAlert("Advertencia!", "No fue posible crear el concepto.", "warning", "#f7060d", getUrl('Concepto', 'Concepto', 'read'));
     }
+}
+
+
+   public function getData()
+{
+    $id = $_GET['con_id'];
+    $array = [];
+
+    $rs = ConceptoDAO::getInstance()->findById($id);
+
+    foreach ($rs as $key => $rowConcepto) {
+        $array['id'] = $rowConcepto['con_id'];
+        $array['descripcion'] = $rowConcepto['con_descripcion'];
+        $array['estado'] = $rowConcepto['con_estado'];
+    }
+
+    echo json_encode($array);
+}
+
 }
