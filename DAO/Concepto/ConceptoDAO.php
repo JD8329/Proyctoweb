@@ -46,7 +46,6 @@ class ConceptoDAO extends connection
         }
     }
 
-    // método agregado para actualizar un concepto
     public function update($id, $descripcion, $estado)
     {
         try {
@@ -58,6 +57,18 @@ class ConceptoDAO extends connection
             return 1;
         } catch (PDOException $exc) {
             die('Error update() ConceptoDAO:<br/>' . $exc->getMessage());
+            return 0;
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $sql = "DELETE FROM concepto WHERE con_id = '" . $id . "'";
+            $this->execute($sql);
+            return 1;
+        } catch (PDOException $exc) {
+            die('Error delete() ConceptoDAO:<br/>' . $exc->getMessage());
             return 0;
         }
     }
