@@ -5,7 +5,6 @@ $(document).ready(function () {
 var listConcepto = function () {
     var table = $('#dt_concepto').DataTable({
         destroy: true,
-        responsive: true,
         searching: true,
         orderable: false,
         lengthChange: false,
