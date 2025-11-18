@@ -1,48 +1,74 @@
 <?php
-class ModalsFormaPago 
+class ModalsFormaPago
 {
-    public static function modalCreate()
-    {
-?>
-        <div class="modal" tabindex="-1" id="modalCreateFormaPago">
-            <div class="modal-dialog modal-sm">
+    public static function modalCreate() { ?>
+        <div class="modal fade" id="modalCreateFormaPago">
+            <div class="modal-dialog modal-xs">
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <h5 class="modal-title">Registrar Forma de Pago</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
+
                     <div class="modal-body">
-                        <form name="frmCreateFormaPago" action="<?php echo getUrl('FormaPago', 'FormaPago', 'postNew'); ?>" method="post">
-                            <div class="mb-3">
-                                <label for="idFormaPago" class="form-label">Código</label>
-                                <input type="number" name="idFormaPago" id="idFormaPago" class="form-control" required>
+                        <form action="<?php echo getUrl('FormaPago', 'FormaPago', 'postNew'); ?>" method="post">
+                            
+                            <label>Código</label>
+                            <input type="number" name="idFP" class="form-control mb-2">
+
+                            <label>Descripción</label>
+                            <input type="text" name="descripcionFP" class="form-control mb-2">
+
+                            <label>Estado</label>
+                            <input type="text" name="estadoFP" class="form-control mb-2">
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-primary">Registrar</button>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="metodoFormaPago" class="form-label">Método</label>
-                                <select name="metodoFormaPago" id="metodoFormaPago" class="form-select" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="Nequi">Nequi</option>
-                                    <option value="Bancolombia">Bancolombia</option>
-                                    <option value="Davivienda">Davivienda</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="valorFormaPago" class="form-label">Valor</label>
-                                <input type="number" step="0.01" name="valorFormaPago" id="valorFormaPago" class="form-control" required>
-                            </div>
+                        </form>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Registrar</button>
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>
-<?php
-    }
+<?php }
+
+    public static function modalEdit() { ?>
+        <div class="modal fade" id="modalEditFormaPago">
+            <div class="modal-dialog modal-xs">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Forma de Pago</h5>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="<?php echo getUrl('FormaPago', 'FormaPago', 'postUpdate'); ?>" method="post">
+
+                            <label>Código</label>
+                            <input type="number" id="idFPEdit" name="idFPEdit" readonly class="form-control mb-2">
+
+                            <label>Descripción</label>
+                            <input type="text" id="descripcionFPEdit" name="descripcionFPEdit" class="form-control mb-2">
+
+                            <label>Estado</label>
+                            <input type="text" id="estadoFPEdit" name="estadoFPEdit" class="form-control mb-2">
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+<?php }
 }
 ?>

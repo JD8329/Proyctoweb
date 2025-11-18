@@ -12,67 +12,42 @@ class FormaPagoDAO extends connection
         return self::$instance;
     }
 
-    // 🔹 Obtener todos los registros
     public function getAll()
     {
-        $sql = "SELECT * FROM concepto ORDER BY con_id ASC";
-        $result = $this->execute($sql);
-        return $result;
+        $sql = "SELECT * FROM forma_pago";
+        return $this->execute($sql);
     }
 
-    // 🔹 Agregar una nueva forma de pago
-    public function add($id, $metodo, $valor)
+    public function add($id, $descripcion, $estado)
     {
-        try {
-            $sql = "INSERT INTO concepto (con_id, con_descripcion, con_estado)
-                    VALUES ('$id', '$metodo', '$valor')";
-            $this->execute($sql);
-            return 1;
-        } catch (PDOException $exc) {
-            error_log("Error Add() FormaPagoDAO: " . $exc->getMessage());
-            return 0;
-        }
+        $sql = "
+            INSERT INTO forma_pago (fp_id, fp_descripcion, fp_estado)
+            VALUES ('$id', '$descripcion', '$estado')
+        ";
+        return $this->execute($sql) ? 1 : 0;
     }
 
-    // 🔹 Buscar una forma de pago por ID
     public function findById($id)
     {
-        try {
-            $sql = "SELECT * FROM concepto WHERE con_id = '$id'";
-            $result = $this->execute($sql);
-            return $result;
-        } catch (PDOException $exc) {
-            error_log("Error findById() FormaPagoDAO: " . $exc->getMessage());
-            return [];
-        }
+        $sql = "SELECT * FROM forma_pago WHERE fp_id = '$id'";
+        return $this->execute($sql);
     }
 
-    // 🔹 Actualizar una forma de pago existente
-    public function update($id, $metodo, $valor)
+    public function update($id, $descripcion, $estado)
     {
-        try {
-            $sql = "UPDATE concepto 
-                    SET con_descripcion = '$metodo', con_estado = '$valor'
-                    WHERE con_id = '$id'";
-            $this->execute($sql);
-            return 1;
-        } catch (PDOException $exc) {
-            error_log("Error update() FormaPagoDAO: " . $exc->getMessage());
-            return 0;
-        }
+        $sql = "
+            UPDATE forma_pago 
+            SET fp_descripcion='$descripcion',
+                fp_estado='$estado'
+            WHERE fp_id='$id'
+        ";
+        return $this->execute($sql) ? 1 : 0;
     }
 
-    // 🔹 Eliminar una forma de pago
     public function delete($id)
     {
-        try {
-            $sql = "DELETE FROM concepto WHERE con_id = '$id'";
-            $this->execute($sql);
-            return 1;
-        } catch (PDOException $exc) {
-            error_log("Error delete() FormaPagoDAO: " . $exc->getMessage());
-            return 0;
-        }
+        $sql = "DELETE FROM forma_pago WHERE fp_id='$id'";
+        return $this->execute($sql) ? 1 : 0;
     }
 }
 ?>
